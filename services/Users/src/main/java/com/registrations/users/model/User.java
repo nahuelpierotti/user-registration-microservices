@@ -1,48 +1,56 @@
 package com.registrations.users.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.UUIDJdbcType;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "user_data")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private long idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idUser;
 
-    @Column(nullable = true, length = 150)
+    @JdbcType(UUIDJdbcType.class)
+    @EqualsAndHashCode.Include
+    @Column(unique = true, nullable = false)
+    private UUID id=UUID.randomUUID();
+
+    @Column(length = 150)
     private String name;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false,unique = true, length = 150)
     private String email;
 
     @Column(nullable = false, length = 60)
     private String password;
 
-    @Column(nullable = true)
-    private boolean isActive;
+    private boolean isActive=true;
 
-    @Column(nullable = true,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @Temporal(value=TemporalType.DATE)
-    private Date created;
+    private Timestamp created=Timestamp.valueOf(LocalDateTime.now());
 
-    @Column(nullable = true,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @Temporal(value=TemporalType.DATE)
-    private Date lastLogin;
+    private Timestamp lastLogin=Timestamp.valueOf(LocalDateTime.now());
 
-    @Column(nullable = true)
+    @JsonManagedReference
     @OneToMany(mappedBy = "idPhone",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Phone> phones;
+
+    private String token;
+
 }

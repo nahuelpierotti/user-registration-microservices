@@ -1,34 +1,33 @@
 package com.registrations.users.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Phone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private long idPhone;
+    private Long idPhone;
 
     @Column(nullable = false)
-    private long number;
+    private Long number;
 
     @Column(nullable = false)
-    private int citycode;
+    private Integer citycode;
 
     @Column(nullable = false)
     private String countrycode;
 
-    @ManyToOne
-    @JoinColumn(name = "idUser",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUser",nullable = false,foreignKey = @ForeignKey(name = "FK_USER_PHONES"))
     private User user;
 
 }
