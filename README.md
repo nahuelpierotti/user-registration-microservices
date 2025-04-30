@@ -8,7 +8,7 @@ Api sencilla desarrollada en Java para la generacion de tokens usando JWT.
 
 ## Deployment
 
-Para deployar el proyecto es necesario contar con jdk 21 en adelante.
+Para deployar el proyecto es necesario contar con java jdk 21 y springboot 3.4.0 en adelante.
 Se recomienda usar Intellij Idea 2024.3.5 en adelante.
 En el application.properties se dejo configurada la base de datos h2 y una clave que se puede modificar para fines de usar como llave para la generacion de tokens.
 
