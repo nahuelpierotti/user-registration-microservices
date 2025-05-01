@@ -27,7 +27,7 @@ El primer endpoint al que se accede es:
   "password": "a2asfGdfdf4",
   "phones": [
     {
-      "number": 113693568,
+      "number": 1133335555,
       "citycode": 1,
       "countrycode": "54"
     }
@@ -38,4 +38,22 @@ La respuesta tendra un token que debe ajuntarse en el parametro Authorization en
 ```bash
   users/login
 ```
-que dara como respuesta los datos iniciales mas el token generado.
+que dara como respuesta los datos iniciales mas el token generado, ej:
+```bash
+{
+    "id": "becbea36-ba94-4389-8bce-1c0b857ff871",
+    "created": "2025-05-01T00:14:45.932+00:00",
+    "lastLogin": "2025-05-01T00:14:45.932+00:00",
+    "token": "eyJhbGciOiJIUzUxMiJ9.eyJuYW1lIjoiTmFodWVsIiwic3ViIjoibnBpZXJAZ21haWwuY29tIiwiaWF0IjoxNzQ2MDU4NDg2LCJleHAiOjE3NDYwNzY0ODZ9.q-bzSKy-71fnNI1Lrd2x0Us6tbqeAf1GAhKNty6STSFHhUe5JuTTerREAuc27zkAhgvSyQ_Pbk6BuCPwm_XTSw",
+    "email": "johndoe@email.com",
+    "password": "$2a$10$bRzyVRXhqgV.zc504rVTLuVXn55XQpR0OZGNR.vmZs28ie37a3L3.",
+    "active": true,
+    "phone": [
+        {
+            "number": 1133335555,
+            "citycode": 1,
+            "countrycode": "54"
+        }
+    ]
+}
+```
