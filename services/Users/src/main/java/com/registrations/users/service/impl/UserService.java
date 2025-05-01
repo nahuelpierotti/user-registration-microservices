@@ -2,6 +2,7 @@ package com.registrations.users.service.impl;
 
 import com.registrations.users.config.MapperConfig;
 import com.registrations.users.config.PasswordEncoder;
+import com.registrations.users.dto.PhoneDto;
 import com.registrations.users.dto.UserLoggedResponseDto;
 import com.registrations.users.dto.UserRequestDto;
 import com.registrations.users.exception.UserAlreadyRegisteredException;
@@ -10,6 +11,8 @@ import com.registrations.users.repo.IUserRepository;
 import com.registrations.users.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -35,8 +38,10 @@ public class UserService implements IUserService {
     @Override
     public UserLoggedResponseDto findOneByEmail(String email) {
         User user= userRepository.findOneByEmail(email);
-        return modelMapper.modelMapper().map(user, UserLoggedResponseDto.class);
-
+        UserLoggedResponseDto userLoggedResponseDto=modelMapper.modelMapper().map(user, UserLoggedResponseDto.class);
+        List<PhoneDto> phoneDtoList=modelMapper.mapList(user.getPhones(), PhoneDto.class);
+        userLoggedResponseDto.setUserPhoneList(phoneDtoList);
+        return userLoggedResponseDto;
     }
 
 

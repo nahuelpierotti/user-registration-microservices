@@ -1,11 +1,10 @@
 package com.registrations.users.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.registrations.users.model.Phone;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -30,8 +29,9 @@ public class UserLoggedResponseDto {
     @NotNull
     private String password;
 
-    @NotNull
     @JsonBackReference
     private List<Phone> phones;
 
+    @JsonProperty("phone")
+    private List<PhoneDto> userPhoneList;
 }

@@ -1,5 +1,6 @@
 package com.registrations.users.model;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,7 +27,8 @@ public class Phone {
     @Column(nullable = false)
     private String countrycode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idUser",nullable = false,foreignKey = @ForeignKey(name = "FK_USER_PHONES"))
     private User user;
 

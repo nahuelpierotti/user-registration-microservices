@@ -1,5 +1,8 @@
 package com.registrations.users.config;
 
+import com.registrations.users.dto.UserLoggedResponseDto;
+import com.registrations.users.model.User;
+import org.hibernate.validator.internal.constraintvalidators.bv.time.pastorpresent.PastOrPresentValidatorForCalendar;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
