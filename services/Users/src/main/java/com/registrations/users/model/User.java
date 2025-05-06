@@ -48,7 +48,7 @@ public class User {
     private Timestamp lastLogin=Timestamp.valueOf(LocalDateTime.now());
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "idPhone",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Phone> phones;
 
     private String token;
