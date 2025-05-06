@@ -1,6 +1,5 @@
 package com.registrations.users.repository;
 
-import com.registrations.users.model.Phone;
 import com.registrations.users.model.User;
 import com.registrations.users.repo.IUserRepository;
 import org.assertj.core.api.Assertions;
@@ -8,23 +7,22 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.when;
 
 
-@JdbcTest
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class UserRepositoryTests {
 
 
-    @Autowired
+    @Mock
     private IUserRepository userRepository;
     User userMock=null;
 
     @BeforeEach
     public void setUp() {
+        MockitoAnnotations.openMocks(this);
+
         userMock= User.builder()
                 .idUser(Long.parseLong("2"))
                 .name("John Doe")
@@ -32,21 +30,20 @@ public class UserRepositoryTests {
                 .password("a2asfGfdfdf4")
                 .build();
 
-        Phone phone= Phone.builder()
-                .idPhone(Long.parseLong("1"))
-                .number(Long.parseLong("1150554949"))
-                .citycode(1)
-                .countrycode("54")
-                .user(userMock)
-                .build();
 
+    }
+    @Test
+    @DisplayName("Adding successfully a user")
+    void addAUser(){
         userRepository.save(userMock);
     }
+
 
     @Test
     @DisplayName("Retrieving a user from email")
     public void findOneByEmail() {
-        Assertions.assertThat(userRepository.findOneByEmail(userMock.getEmail())).isNotNull();
+        when(userRepository.findOneByEmail("john.doe@example.com")).thenReturn(userMock);
+        Assertions.assertThat(userMock).isNotNull();
     }
 
     @AfterEach

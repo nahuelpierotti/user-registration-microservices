@@ -49,10 +49,6 @@ public class JwtService implements Serializable {
                 .signWith(getSignInKey())
                 .compact();
     }
-    public String generateRefreshToken( User user) {
-        return buildToken(user);
-    }
-
     public Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(token).getPayload();
     }
@@ -66,10 +62,4 @@ public class JwtService implements Serializable {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    public Date getExpirationDateFromToken(String token){
-        return getClaimFromToken(token, Claims::getExpiration);
-    }
-    public boolean isTokenExpired(String token) {
-        return getExpirationDateFromToken(token).before(new Date());
-    }
 }

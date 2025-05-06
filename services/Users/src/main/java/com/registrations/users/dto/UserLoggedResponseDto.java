@@ -30,8 +30,9 @@ public class UserLoggedResponseDto {
     private String password;
 
     @JsonBackReference
+    @JsonProperty("all_phones")
     private List<Phone> phones;
 
-    @JsonProperty("phone")
+    @JsonProperty("phones")
     private List<PhoneDto> userPhoneList;
 }

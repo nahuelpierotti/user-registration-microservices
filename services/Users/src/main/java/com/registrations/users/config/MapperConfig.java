@@ -1,29 +1,31 @@
 package com.registrations.users.config;
 
-import com.registrations.users.dto.UserLoggedResponseDto;
-import com.registrations.users.model.User;
-import org.hibernate.validator.internal.constraintvalidators.bv.time.pastorpresent.PastOrPresentValidatorForCalendar;
+import lombok.Data;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-
+@Data
 @Configuration
 public class MapperConfig {
 
-    private final ModelMapper modelMapper=new ModelMapper();
+    private ModelMapper modelMapper;
+
+    public MapperConfig() {
+        this.modelMapper = new ModelMapper();
+    }
 
     @Bean(name="defaultMapper")
     public ModelMapper modelMapper() {
-        return modelMapper;
+        return this.modelMapper;
     }
 
     public <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
         return source
                 .stream()
-                .map(element -> modelMapper.map(element, targetClass))
+                .map(element -> this.modelMapper.map(element, targetClass))
                 .toList();
     }
 }

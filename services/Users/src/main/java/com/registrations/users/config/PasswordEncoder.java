@@ -7,8 +7,4 @@ public class PasswordEncoder {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(password);
     }
-    public static boolean matches(String password, String encodedPassword) {
-        String encoded = encode(encodedPassword);
-        return encoded.equals(password);
-    }
 }

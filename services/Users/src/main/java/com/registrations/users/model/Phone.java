@@ -28,7 +28,7 @@ public class Phone {
     private String countrycode;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUser",nullable = false,foreignKey = @ForeignKey(name = "FK_USER_PHONES"))
     private User user;
 
